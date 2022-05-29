@@ -2,6 +2,9 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   padding: 20px 5%;
+  @media screen and (max-width: 767px) {
+    padding: 30px 5%;
+  }
 
   .prod-card {
     cursor: pointer;
@@ -31,6 +34,9 @@ export const Container = styled.div`
       position: relative;
       left: 25%;
       display: none;
+      @media screen and (max-width: 1023px) {
+        display: block;
+      }
     }
 
     &:hover {
@@ -40,6 +46,10 @@ export const Container = styled.div`
         display: block;
       }
     }
-
   }
+  .slick-dots {
+      @media screen and (max-width: 767px) {
+        bottom: -25px;
+      }
+    }
 `;
