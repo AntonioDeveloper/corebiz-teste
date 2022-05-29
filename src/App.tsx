@@ -1,5 +1,6 @@
 import { Banner } from "./components/Banner";
 import { Header } from "./components/Header";
+import { Shelf } from "./components/Shelf";
 import { GlobalStyle } from "./styles/global";
 
 export function App() {
@@ -7,6 +8,7 @@ export function App() {
     <>
       <Header />
       <Banner />
+      <Shelf />
       <GlobalStyle />
     </>
   );

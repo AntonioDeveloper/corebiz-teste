@@ -2,6 +2,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import imgBanner from '../../assets/banner.jpg';
+import './style.css';
 
 export function Banner() {
   var settings = {
