@@ -1,4 +1,5 @@
 import { Banner } from "./components/Banner";
+import { CartProvider } from "./components/CartContext";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { News } from "./components/News";
@@ -7,14 +8,14 @@ import { GlobalStyle } from "./styles/global";
 
 export function App() {
   return (
-    <>
+    <CartProvider>
       <Header />
       <Banner />
       <Shelf />
       <News />
       <Footer />
       <GlobalStyle />
-    </>
+    </CartProvider>
   );
 }
 

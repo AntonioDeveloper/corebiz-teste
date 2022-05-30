@@ -1,10 +1,11 @@
 import { Container } from "./styles";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { api } from "../../services/api";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import imgStarFilled from '../../assets/star-filled.svg';
+import { CartContext } from "../CartContext";
 
 interface Product {
   imageUrl: string;
@@ -20,6 +21,11 @@ interface Product {
   htmlArray: {
     currentSrc: string;
   }[];
+}
+
+interface DataObj {
+  boughtProds?: number;
+  setBoughtProds?: (counter: any) => any;
 }
 
 export function Shelf() {
@@ -61,6 +67,7 @@ export function Shelf() {
   };
 
   const [products, setProducts] = useState<Product[]>([]);
+  const { boughtProds, setBoughtProds } = useContext<DataObj>(CartContext);
 
   useEffect(() => {
     api.get('/v1/products')
@@ -77,10 +84,19 @@ export function Shelf() {
 
     }
 
-    console.log(htmlArray)
+    //console.log(htmlArray)
     return htmlArray.map(h => (
       <span><img src={h.currentSrc} /></span>
     ))
+  }
+
+  function teste() {
+    console.log("oiii")
+  }
+
+  function updateCart() {
+    setBoughtProds?.((counter: any) => counter + 1);
+    console.log(boughtProds);
   }
 
   return (
@@ -97,7 +113,10 @@ export function Shelf() {
               </>
             </div>
             <h4>{prod.price}</h4>
-            <button type="button">COMPRAR</button>
+            <button
+              type="button"
+              onClick={updateCart}
+            >COMPRAR</button>
           </div>)
         )}
       </Slider>
