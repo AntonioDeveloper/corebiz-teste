@@ -41,10 +41,17 @@ export const Container = styled.div`
 
     &:hover {
       background: #ccc;
+      padding-bottom: 10px;
 
       button {
         display: block;
       }
+    }
+
+    .stars {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
     }
   }
   .slick-dots {

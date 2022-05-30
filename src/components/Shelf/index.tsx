@@ -108,7 +108,7 @@ export function Shelf() {
                 {estrela(prod.stars)}
               </>
             </div>
-            <h4>{prod.price}</h4>
+            <h4>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: "BRL", maximumFractionDigits: 2 }).format(prod.price)}</h4>
             <button
               type="button"
               onClick={updateCart}

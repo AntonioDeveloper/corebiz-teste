@@ -6,6 +6,10 @@ import { News } from "./components/News";
 import { Shelf } from "./components/Shelf";
 import { GlobalStyle } from "./styles/global";
 
+interface News {
+  onSubmitUser: (username: string) => void;
+}
+
 export function App() {
   return (
     <CartProvider>
