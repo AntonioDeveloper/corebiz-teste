@@ -90,10 +90,6 @@ export function Shelf() {
     ))
   }
 
-  function teste() {
-    console.log("oiii")
-  }
-
   function updateCart() {
     setBoughtProds?.((counter: any) => counter + 1);
     console.log(boughtProds);

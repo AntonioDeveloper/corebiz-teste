@@ -1,4 +1,5 @@
 import { Container } from "./styles";
+import { sendEmail } from "../../services/sendEmail";
 
 export function News() {
   return (
@@ -7,7 +8,7 @@ export function News() {
       <form>
         <input type="text" placeholder="Digite seu nome" />
         <input type="text" placeholder="Digite seu email" />
-        <button type="submit">Eu quero!</button>
+        <button type="submit" onClick={sendEmail}>Eu quero!</button>
       </form>
     </Container>
   )

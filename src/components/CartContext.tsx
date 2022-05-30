@@ -1,4 +1,4 @@
-import { createContext, useState, ReactNode } from 'react';
+import { createContext, useState, useEffect, ReactNode } from 'react';
 
 interface CartProviderProps {
   children: ReactNode;
@@ -7,7 +7,12 @@ interface CartProviderProps {
 export const CartContext = createContext({});
 
 export function CartProvider({ children }: CartProviderProps) {
-  const [boughtProds, setBoughtProds] = useState(4);
+  const [boughtProds, setBoughtProds] = useState(JSON.parse(localStorage.getItem('cartQuantity')!));
+
+  useEffect(() => {
+    localStorage.setItem('cartQuantity', JSON.stringify(boughtProds))
+  }, [boughtProds]);
+
   const providerValue = {
     boughtProds, setBoughtProds
   };
