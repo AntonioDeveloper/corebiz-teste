@@ -6,4 +6,4 @@ Para rodar o projeto, é necessário:
 - Abrir o terminal e rodar o comando yarn install para instalar as dependências
 - Após as dependências terem sido instaladas, rodar yarn start para abrir o projeto
 
-![screenshot](/assets/screenshot.jpg)
+![screenshot](https://github.com/AntonioDeveloper/corebiz-teste/blob/master/src/assets/screenshot.jpg)
