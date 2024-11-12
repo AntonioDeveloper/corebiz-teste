@@ -8,16 +8,16 @@ import imgStarFilled from '../../assets/star-filled.svg';
 import { CartContext } from "../CartContext";
 
 interface Product {
-  imageUrl: string;
+  image: string;
   installments: {
     quantity: number;
     value: number;
   }[];
   price: number;
-  productId: number;
-  productName: string;
-  stars: number;
-  estrela(stars: number): any;
+  id: number;
+  title: string;
+  rating: {count: number, rate: number};
+  estrela(rating: number): any;
   htmlArray: {
     currentSrc: string;
   }[];
@@ -70,21 +70,25 @@ export function Shelf() {
   const { boughtProds, setBoughtProds } = useContext<DataObj>(CartContext);
 
   useEffect(() => {
-    api.get('/v1/products')
+    api.get('/products')
       .then(response => setProducts(response.data))
   }, []);
 
-  function estrela(stars: number) {
+  console.log("PRODS", products);
+
+  function estrela(rating: number) {
     const starFilled = document.createElement("img")!;
     starFilled.setAttribute("src", imgStarFilled);
     let htmlArray = [];
 
-    for (let i = stars; i > 0; i--) {
-      htmlArray.push(starFilled);
+    console.log("RATING", rating);
 
+    for (let i = rating; i > 0; i--) {
+      htmlArray.push(starFilled);
     }
 
     //console.log(htmlArray)
+
     return htmlArray.map(h => (
       <span><img src={h.currentSrc} /></span>
     ))
@@ -100,12 +104,12 @@ export function Shelf() {
       <h3>Mais vendidos</h3>
       <Slider {...settings}>
         {products.map(prod => (
-          <div className='prod-card' key={prod.productId}>
-            <img src={prod.imageUrl} alt={prod.productName} />
-            <p>{prod.productName}</p>
-            <div className="stars">
+          <div className='prod-card' key={prod.id}>
+            <img src={prod.image} alt={prod.title} />
+            <p>{prod.title}</p>
+            <div className="rating">
               <>
-                {estrela(prod.stars)}
+                {estrela(prod.rating.rate)}
               </>
             </div>
             <h4>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: "BRL", maximumFractionDigits: 2 }).format(prod.price)}</h4>

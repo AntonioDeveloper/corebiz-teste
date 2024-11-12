@@ -48,15 +48,27 @@ export const Container = styled.div`
       }
     }
 
-    .stars {
+    .rating {
       display: flex;
       justify-content: center;
       margin-bottom: 10px;
+
+      img {
+        width: 20px;
+        height: 20px;
+      }
     }
   }
   .slick-dots {
       @media screen and (max-width: 767px) {
         bottom: -25px;
+      }
+    }
+
+    .slick-slide {
+      img {
+        width: 283px;
+        height: 283px;
       }
     }
 `;
