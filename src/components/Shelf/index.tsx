@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { CartContext } from "../CartContext";
+import imgStarFilled from "../../assets/star-filled.svg"
 
 interface Product {
   image: string;
@@ -15,8 +16,8 @@ interface Product {
   price: number;
   id: number;
   title: string;
-  rating: number;
-  estrela(rating: number): any;
+  rating: { count: number, rate: number };
+  star(rating: number): any;
   htmlArray: {
     currentSrc: string;
   }[];
@@ -70,23 +71,22 @@ export function Shelf() {
 
   useEffect(() => {
     api.get('/products')
-      .then(response => {
-        setProducts(response.data)
-        console.log(products)
-      })
+      .then(response => setProducts(response.data))
   }, []);
 
-  function estrela(stars: number) {
+  console.log("PRODS", products);
+
+  function star(rating: number) {
     const starFilled = document.createElement("img")!;
-    // starFilled.setAttribute("src", imgStarFilled);
+    starFilled.setAttribute("src", imgStarFilled);
     let htmlArray = [];
 
-    for (let i = stars; i > 0; i--) {
+    for (let i = rating; i > 0; i--) {
       htmlArray.push(starFilled);
-
     }
 
     //console.log(htmlArray)
+
     return htmlArray.map(h => (
       <span><img src={h.currentSrc} /></span>
     ))
@@ -105,9 +105,9 @@ export function Shelf() {
           <div className='prod-card' key={prod.id}>
             <img src={prod.image} alt={prod.title} />
             <p>{prod.title}</p>
-            <div className="stars">
+            <div className="rating">
               <>
-                {estrela(prod.rating)}
+                {star(prod.rating.rate)}
               </>
             </div>
             <h4>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: "BRL", maximumFractionDigits: 2 }).format(prod.price)}</h4>
