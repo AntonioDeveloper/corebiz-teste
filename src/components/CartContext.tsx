@@ -7,14 +7,15 @@ interface CartProviderProps {
 export const CartContext = createContext({});
 
 export function CartProvider({ children }: CartProviderProps) {
-  const [boughtProds, setBoughtProds] = useState(JSON.parse(localStorage.getItem('cartQuantity')!));
+  const [boughtProds, setBoughtProds] = useState([]);
+  const [cartQuantity, setCartQuantity] = useState(0);
 
   useEffect(() => {
-    localStorage.setItem('cartQuantity', JSON.stringify(boughtProds))
+    setCartQuantity(boughtProds.length);
   }, [boughtProds]);
 
   const providerValue = {
-    boughtProds, setBoughtProds
+    boughtProds, setBoughtProds, cartQuantity
   };
 
   return (

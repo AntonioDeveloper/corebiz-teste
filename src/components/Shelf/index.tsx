@@ -24,8 +24,8 @@ interface Product {
 }
 
 interface DataObj {
-  boughtProds?: number;
-  setBoughtProds?: (counter: any) => any;
+  boughtProds?: Product[] | undefined;
+  setBoughtProds?: (prod: any) => void;
 }
 
 export function Shelf() {
@@ -74,8 +74,6 @@ export function Shelf() {
       .then(response => setProducts(response.data))
   }, []);
 
-  console.log("PRODS", products);
-
   function star(rating: number) {
     const starFilled = document.createElement("img")!;
     starFilled.setAttribute("src", imgStarFilled);
@@ -85,16 +83,17 @@ export function Shelf() {
       htmlArray.push(starFilled);
     }
 
-    //console.log(htmlArray)
-
     return htmlArray.map(h => (
       <span><img src={h.currentSrc} /></span>
     ))
   }
 
-  function updateCart() {
-    setBoughtProds?.((counter: any) => counter + 1);
-    console.log(boughtProds);
+  function updateCart(prod: Product) {
+    if (boughtProds) {
+      setBoughtProds?.([...boughtProds, prod]);
+    } else {
+      return;
+    }
   }
 
   return (
@@ -113,7 +112,7 @@ export function Shelf() {
             <h4>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: "BRL", maximumFractionDigits: 2 }).format(prod.price)}</h4>
             <button
               type="button"
-              onClick={updateCart}
+              onClick={() => updateCart(prod)}
             >COMPRAR</button>
           </div>)
         )}
