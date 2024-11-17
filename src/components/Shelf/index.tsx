@@ -4,20 +4,19 @@ import { api } from "../../services/api";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import imgStarFilled from '../../assets/star-filled.svg';
 import { CartContext } from "../CartContext";
 
 interface Product {
-  imageUrl: string;
+  image: string;
   installments: {
     quantity: number;
     value: number;
   }[];
   price: number;
-  productId: number;
-  productName: string;
-  stars: number;
-  estrela(stars: number): any;
+  id: number;
+  title: string;
+  rating: number;
+  estrela(rating: number): any;
   htmlArray: {
     currentSrc: string;
   }[];
@@ -70,13 +69,16 @@ export function Shelf() {
   const { boughtProds, setBoughtProds } = useContext<DataObj>(CartContext);
 
   useEffect(() => {
-    api.get('/v1/products')
-      .then(response => setProducts(response.data))
+    api.get('/products')
+      .then(response => {
+        setProducts(response.data)
+        console.log(products)
+      })
   }, []);
 
   function estrela(stars: number) {
     const starFilled = document.createElement("img")!;
-    starFilled.setAttribute("src", imgStarFilled);
+    // starFilled.setAttribute("src", imgStarFilled);
     let htmlArray = [];
 
     for (let i = stars; i > 0; i--) {
@@ -100,12 +102,12 @@ export function Shelf() {
       <h3>Mais vendidos</h3>
       <Slider {...settings}>
         {products.map(prod => (
-          <div className='prod-card' key={prod.productId}>
-            <img src={prod.imageUrl} alt={prod.productName} />
-            <p>{prod.productName}</p>
+          <div className='prod-card' key={prod.id}>
+            <img src={prod.image} alt={prod.title} />
+            <p>{prod.title}</p>
             <div className="stars">
               <>
-                {estrela(prod.stars)}
+                {estrela(prod.rating)}
               </>
             </div>
             <h4>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: "BRL", maximumFractionDigits: 2 }).format(prod.price)}</h4>
