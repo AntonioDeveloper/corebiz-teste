@@ -88,6 +88,7 @@ export function Shelf() {
     ))
   }
 
+
   function updateCart(prod: Product) {
     if (boughtProds) {
       setBoughtProds?.([...boughtProds, prod]);
