@@ -26,7 +26,7 @@ export function Minicart() {
 
   const data: DataObj = useContext(CartContext);
   const cartData = data.boughtProds;
-  console.log("cart", typeof cartData);
+  console.log("data", data);
   return (
     <Container>
       <ul>
@@ -38,8 +38,16 @@ export function Minicart() {
                   <img src={c.image} />
                 </div>
                 <div>
-                  {c.title}
+                  <h3>{c.title}</h3>
+                  <p>
+                    {new Intl.NumberFormat('pt-BR',
+                      {
+                        style: "currency",
+                        currency: "BRL",
+                      }).format(c.price)}
+                  </p>
                 </div>
+                {/* <MinicartCounter prodQuantity={cartQuantity} /> */}
               </li>
             )
           })
