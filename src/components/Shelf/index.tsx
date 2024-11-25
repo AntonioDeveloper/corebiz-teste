@@ -4,8 +4,9 @@ import { api } from "../../services/api";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { CartContext } from "../CartContext";
-import imgStarFilled from "../../assets/star-filled.svg"
+import { CartContext } from "../../context/CartContext";
+import imgStarFilled from "../../assets/star-filled.svg";
+import { NavLink } from "react-router-dom";
 
 interface Product {
   image: string;
@@ -29,6 +30,7 @@ interface DataObj {
 }
 
 export function Shelf() {
+
   var settings = {
     dots: false,
     infinite: true,
@@ -74,6 +76,8 @@ export function Shelf() {
       .then(response => setProducts(response.data))
   }, []);
 
+  //console.log("prods", products);
+
   function star(rating: number) {
     const starFilled = document.createElement("img")!;
     starFilled.setAttribute("src", imgStarFilled);
@@ -83,8 +87,8 @@ export function Shelf() {
       htmlArray.push(starFilled);
     }
 
-    return htmlArray.map(h => (
-      <span><img src={h.currentSrc} /></span>
+    return htmlArray.map((h, i) => (
+      <span key={i}><img src={h.currentSrc} /></span>
     ))
   }
 
@@ -111,13 +115,18 @@ export function Shelf() {
               </>
             </div>
             <h4>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: "BRL", maximumFractionDigits: 2 }).format(prod.price)}</h4>
-            <button
-              type="button"
-              onClick={() => updateCart(prod)}
-            >COMPRAR</button>
+            <div>
+              <NavLink to={`/product?prod=${prod.id}`}>
+                VER PRODUTO
+              </NavLink>
+              <button
+                type="button"
+                onClick={() => updateCart(prod)}
+              >ADICIONAR AO CARRINHO</button>
+            </div>
           </div>)
         )}
       </Slider>
-    </Container>
+    </Container >
   )
 }

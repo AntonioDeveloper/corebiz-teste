@@ -4,7 +4,7 @@ import imgMagLens from '../../assets/mag-lens.svg';
 import imgUser from '../../assets/user.svg';
 import imgShopCart from '../../assets/shopping-cart.svg';
 import { Container } from './styles';
-import { CartContext } from '../CartContext';
+import { CartContext } from '../../context/CartContext';
 import useToggle from '../../Hooks/useToggle';
 import { Minicart } from '../Minicart/Minicart';
 

@@ -9,7 +9,7 @@ export const Container = styled.div`
   .prod-card {
     cursor: pointer;
     padding: 0 10px;
-
+ 
     img {
       margin: 0 auto;
       width: 100%;
