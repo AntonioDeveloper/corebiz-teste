@@ -1,4 +1,5 @@
 import Images from "../components/Product/Images";
+import ProductSection from "../components/Product/ProductSection";
 import Layout from "../layout/Layout";
 import { api } from "../services/api";
 import { useState, useEffect, useMemo } from 'react';
@@ -13,6 +14,7 @@ interface Product {
   price: number;
   id: number;
   title: string;
+  description: string;
   rating: { count: number, rate: number };
   star(rating: number): any;
   htmlArray: {
@@ -26,8 +28,9 @@ const defaultProduct: Product = {
   price: 0,
   id: 0,
   title: '',
+  description: '',
   rating: { count: 0, rate: 0 },
-  star: (rating: number) => { }, // No-op function or meaningful default
+  star: (rating: number) => { },
   htmlArray: [],
 };
 export default function Product() {
@@ -63,11 +66,11 @@ export default function Product() {
       return;
     }
   }
-  console.log("SEL PRODS", selectedProd.image);
+  console.log("SEL PRODS", selectedProd);
 
   return (
     <Layout>
-      <Images images={selectedProd.image} />
+      <ProductSection selectedProduct={selectedProd} />
     </Layout>
   )
 }
