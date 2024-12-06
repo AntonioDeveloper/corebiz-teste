@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
 import { Container } from "./style";
+import MinicartCounter from "./MinicartCounter";
 
 interface Product {
   image: string;
@@ -19,35 +20,37 @@ interface Product {
 }
 
 interface DataObj {
-  boughtProds?: Product[];
+  boughtProds?: { props: Product, qtty: number }[];
 }
 
 export function Minicart() {
 
   const data: DataObj = useContext(CartContext);
-  const cartData = data.boughtProds;
-  console.log("data", data);
+  const { setCartQuantity } = useContext<any>(CartContext);
+  const cartData = data;
+  console.log("data minicart", cartData.boughtProds);
+
   return (
     <Container>
       <ul>
         {
-          cartData?.map((c: Product) => {
+          cartData.boughtProds?.map((c) => {
             return (
-              <li key={c.id}>
+              <li key={c.props.id}>
                 <div>
-                  <img src={c.image} />
+                  <img src={c.props.image} />
                 </div>
                 <div>
-                  <h3>{c.title}</h3>
+                  <h3>{c.props.title}</h3>
                   <p>
                     {new Intl.NumberFormat('pt-BR',
                       {
                         style: "currency",
                         currency: "BRL",
-                      }).format(c.price)}
+                      }).format(c.props.price)}
                   </p>
                 </div>
-                {/* <MinicartCounter prodQuantity={cartQuantity} /> */}
+                <MinicartCounter prodQuantity={c.qtty} />
               </li>
             )
           })

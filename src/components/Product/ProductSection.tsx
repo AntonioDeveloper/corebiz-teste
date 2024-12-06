@@ -1,6 +1,8 @@
 import Images from "./Images";
 import { Container } from "./styles";
 import imgStarFilled from '../../assets/star-filled.svg';
+import { useContext, useState } from "react";
+import { CartContext } from "../../context/CartContext";
 
 interface Product {
   image: string;
@@ -23,7 +25,20 @@ interface SelectedProductProps {
   selectedProduct: Product
 }
 
+interface CartContextProps {
+  boughtProds?: { props: Product, qtty: number }[];
+  cartQuantity: number;
+  setBoughtProds: (prod: any) => void;
+  setCartQuantity: (qtty: number) => void;
+}
+
+interface DataObj {
+  boughtProds?: { prod: Product, qtty: number }[] | undefined;
+  setBoughtProds?: (prod: any) => void;
+}
 export default function ProductSection(props: SelectedProductProps) {
+
+  const { boughtProds, setBoughtProds } = useContext<CartContextProps>(CartContext);
 
   function star(rating: number) {
     const starFilled = document.createElement("img")!;
@@ -39,8 +54,15 @@ export default function ProductSection(props: SelectedProductProps) {
     ))
   }
 
-  function updateCart() {
+  function updateCart(props: Product) {
+    console.log("PROPS", props);
 
+    let foundProd: any = undefined;
+
+    if (boughtProds && boughtProds?.length >= 0) {
+
+      setBoughtProds?.([...boughtProds, { props, qtty: +1 }]);
+    }
   }
 
   return (
@@ -68,7 +90,13 @@ export default function ProductSection(props: SelectedProductProps) {
           ).format(props.selectedProduct.price)}</p>
           <button
             type="button"
-            onClick={() => console.log("SELECIONADO", props.selectedProduct)}
+            onClick={() => {
+              if (boughtProds?.length === 0) {
+                updateCart(props.selectedProduct)
+              } else {
+                return;
+              }
+            }}
           >ADICIONAR AO CARRINHO</button>
         </div>
       </div>

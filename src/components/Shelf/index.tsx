@@ -24,12 +24,10 @@ interface Product {
   }[];
 }
 
-interface DataObj {
-  boughtProds?: Product[] | undefined;
-  setBoughtProds?: (prod: any) => void;
-}
-
 export function Shelf() {
+
+  const { boughtProds, setBoughtProds } = useContext(CartContext);
+  const [products, setProducts] = useState<Product[]>([]);
 
   var settings = {
     dots: false,
@@ -68,15 +66,10 @@ export function Shelf() {
     ]
   };
 
-  const [products, setProducts] = useState<Product[]>([]);
-  const { boughtProds, setBoughtProds } = useContext<DataObj>(CartContext);
-
   useEffect(() => {
     api.get('/products')
       .then(response => setProducts(response.data))
   }, []);
-
-  //console.log("prods", products);
 
   function star(rating: number) {
     const starFilled = document.createElement("img")!;
@@ -92,12 +85,16 @@ export function Shelf() {
     ))
   }
 
+  function updateCart(e: any, prod: Product) {
 
-  function updateCart(prod: Product) {
-    if (boughtProds) {
-      setBoughtProds?.([...boughtProds, prod]);
-    } else {
-      return;
+    e.target.innerText = "NO CARRINHO";
+
+    if (boughtProds && boughtProds?.length >= 0) {
+
+      setBoughtProds?.([...boughtProds, { prod, qtty: +1 }]);
+
+      e.target.disabled = true;
+
     }
   }
 
@@ -121,7 +118,9 @@ export function Shelf() {
               </NavLink>
               <button
                 type="button"
-                onClick={() => updateCart(prod)}
+                onClick={(e) => {
+                  updateCart(e, prod);
+                }}
               >ADICIONAR AO CARRINHO</button>
             </div>
           </div>)

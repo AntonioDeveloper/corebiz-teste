@@ -8,13 +8,37 @@ import { CartContext } from '../../context/CartContext';
 import useToggle from '../../Hooks/useToggle';
 import { Minicart } from '../Minicart/Minicart';
 
+interface Product {
+  image: string;
+  installments: {
+    quantity: number;
+    value: number;
+  }[];
+  price: number;
+  id: number;
+  title: string;
+  description: string;
+  rating: { count: number, rate: number };
+  star(rating: number): any;
+  htmlArray: {
+    currentSrc: string;
+  }[];
+}
+
 interface DataObj {
   boughtProds?: number;
   cartQuantity?: number;
 }
 
+interface CartContextProps {
+  boughtProds?: { props: Product, qtty: number }[];
+  cartQuantity: number;
+  setBoughtProds: (prod: any) => void;
+  setCartQuantity: (qtty: number) => void;
+}
+
 export function Header() {
-  const data: DataObj = useContext(CartContext);
+  const data: CartContextProps = useContext(CartContext);
   const dataNum = data.cartQuantity;
 
   const [showMiniCart, toggleMiniCart] = useToggle(false);
