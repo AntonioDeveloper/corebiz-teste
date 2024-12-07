@@ -7,22 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { CartContext } from "../../context/CartContext";
 import imgStarFilled from "../../assets/star-filled.svg";
 import { NavLink } from "react-router-dom";
-
-interface Product {
-  image: string;
-  installments: {
-    quantity: number;
-    value: number;
-  }[];
-  price: number;
-  id: number;
-  title: string;
-  rating: { count: number, rate: number };
-  star(rating: number): any;
-  htmlArray: {
-    currentSrc: string;
-  }[];
-}
+import Product from "../../interfaces/Product";
 
 export function Shelf() {
 
@@ -85,13 +70,17 @@ export function Shelf() {
     ))
   }
 
+  //{ prod, qtty: +1 }
+
   function updateCart(e: any, prod: Product) {
 
     e.target.innerText = "NO CARRINHO";
 
     if (boughtProds && boughtProds?.length >= 0) {
 
-      setBoughtProds?.([...boughtProds, { prod, qtty: +1 }]);
+      prod.qtty = +1;
+
+      setBoughtProds?.([...boughtProds, prod]);
 
       e.target.disabled = true;
 

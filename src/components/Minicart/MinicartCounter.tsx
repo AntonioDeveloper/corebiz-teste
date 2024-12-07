@@ -1,36 +1,44 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { CartContext } from "../../context/CartContext";
-
-interface Product {
-  image: string;
-  installments: {
-    quantity: number;
-    value: number;
-  }[];
-  price: number;
-  id: number;
-  title: string;
-  description: string;
-  rating: { count: number, rate: number };
-  star(rating: number): any;
-  htmlArray: {
-    currentSrc: string;
-  }[];
-}
+import Product from "../../interfaces/Product";
 
 interface MinicartCounterProps {
-  prodQuantity: number;
-  boughtProds?: { prod: Product, qtty: number }[] | undefined;
+  prodId: number;
+  prodQtty: number;
 }
+
 export default function MinicartCounter(props: MinicartCounterProps) {
 
-  const { boughtProds } = useContext(CartContext);
+  const { boughtProds, setCartQuantity } = useContext(CartContext);
+  //console.log("id", props.prodId);
 
-  console.log("boughtProds", boughtProds);
+  const currentProd = boughtProds?.find(prod => prod.id === props.prodId);
+
+  function increaseProdQtty(currentProd?: Product) {
+    if (currentProd) {
+      currentProd.qtty = currentProd.qtty + 1;
+      console.log("INCREASED", currentProd)
+      setCartQuantity(currentProd.qtty);
+    }
+  }
+
+  function decreaseProdQtty(currentProd?: Product) {
+    if (currentProd && currentProd.qtty > 0) {
+      currentProd.qtty = currentProd.qtty - 1;
+      console.log("DECREASED", currentProd)
+      setCartQuantity(currentProd.qtty);
+    }
+  }
 
   return (
     <div>
-      {props.prodQuantity}
+      <button id="increase" onClick={() => {
+        increaseProdQtty(currentProd)
+      }}>+</button>
+      <input type="number" placeholder={`${props.prodQtty}`} />
+      <button id="decrease" onClick={() => {
+        decreaseProdQtty(currentProd)
+      }}>-</button>
     </div>
   );
 }

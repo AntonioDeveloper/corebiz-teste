@@ -1,7 +1,7 @@
 import Images from "./Images";
 import { Container } from "./styles";
 import imgStarFilled from '../../assets/star-filled.svg';
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
 
 interface Product {
@@ -25,20 +25,16 @@ interface SelectedProductProps {
   selectedProduct: Product
 }
 
-interface CartContextProps {
-  boughtProds?: { props: Product, qtty: number }[];
-  cartQuantity: number;
-  setBoughtProds: (prod: any) => void;
-  setCartQuantity: (qtty: number) => void;
-}
+// interface CartContextProps {
+//   boughtProds?: { props: Product, qtty: number }[];
+//   cartQuantity: number;
+//   setBoughtProds: (prod: any) => void;
+//   setCartQuantity: (qtty: number) => void;
+// }
 
-interface DataObj {
-  boughtProds?: { prod: Product, qtty: number }[] | undefined;
-  setBoughtProds?: (prod: any) => void;
-}
 export default function ProductSection(props: SelectedProductProps) {
 
-  const { boughtProds, setBoughtProds } = useContext<CartContextProps>(CartContext);
+  const { boughtProds, setBoughtProds } = useContext(CartContext);
 
   function star(rating: number) {
     const starFilled = document.createElement("img")!;
@@ -54,6 +50,8 @@ export default function ProductSection(props: SelectedProductProps) {
     ))
   }
 
+  //{ props, qtty: +1 }
+
   function updateCart(props: Product) {
     console.log("PROPS", props);
 
@@ -61,7 +59,7 @@ export default function ProductSection(props: SelectedProductProps) {
 
     if (boughtProds && boughtProds?.length >= 0) {
 
-      setBoughtProds?.([...boughtProds, { props, qtty: +1 }]);
+      setBoughtProds?.([...boughtProds, props]);
     }
   }
 

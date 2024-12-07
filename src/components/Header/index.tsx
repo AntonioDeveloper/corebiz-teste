@@ -30,15 +30,15 @@ interface DataObj {
   cartQuantity?: number;
 }
 
-interface CartContextProps {
-  boughtProds?: { props: Product, qtty: number }[];
-  cartQuantity: number;
-  setBoughtProds: (prod: any) => void;
-  setCartQuantity: (qtty: number) => void;
-}
+// interface CartContextProps {
+//   boughtProds?: { props: Product, qtty: number }[];
+//   cartQuantity: number;
+//   setBoughtProds: (prod: any) => void;
+//   setCartQuantity: (qtty: number) => void;
+// }
 
 export function Header() {
-  const data: CartContextProps = useContext(CartContext);
+  const data = useContext(CartContext);
   const dataNum = data.cartQuantity;
 
   const [showMiniCart, toggleMiniCart] = useToggle(false);
