@@ -39,7 +39,9 @@ interface DataObj {
 
 export function Header() {
   const data = useContext(CartContext);
-  const dataNum = data.cartQuantity;
+  const totalItems = data?.boughtProds?.reduce(function (acc, curr) {
+    return acc + curr.qtty
+  }, 0);
 
   const [showMiniCart, toggleMiniCart] = useToggle(false);
 
@@ -58,7 +60,7 @@ export function Header() {
       </div>
       <button className="shopCartButton" onClick={toggleMiniCart}>
         <img src={imgShopCart} alt="shop cart" />
-        <span>{dataNum}</span>
+        <span>{totalItems}</span>
       </button>
       {
         showMiniCart === true
