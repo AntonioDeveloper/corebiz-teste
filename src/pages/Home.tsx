@@ -8,9 +8,9 @@ interface News {
 
 export default function Home() {
   return (
-    <Layout>
+    <>
       <Banner />
       <Shelf />
-    </Layout>
+    </>
   )
 }

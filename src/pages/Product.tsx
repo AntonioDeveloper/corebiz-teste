@@ -69,8 +69,8 @@ export default function Product() {
   console.log("SEL PRODS", selectedProd);
 
   return (
-    <Layout>
+    <>
       <ProductSection selectedProduct={selectedProd} />
-    </Layout>
+    </>
   )
 }

@@ -5,6 +5,7 @@ width: 300px;
 height: auto;
 padding: 10px;
 display: flex;
+flex-wrap: wrap;
 position: absolute;
 z-index: 1;
 top: 70px;

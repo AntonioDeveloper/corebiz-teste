@@ -56,6 +56,10 @@ export function Shelf() {
       .then(response => setProducts(response.data))
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem("Cart Prods", JSON.stringify(boughtProds));
+  }, [boughtProds]);
+
   function star(rating: number) {
     const starFilled = document.createElement("img")!;
     starFilled.setAttribute("src", imgStarFilled);
@@ -69,8 +73,6 @@ export function Shelf() {
       <span key={i}><img src={h.currentSrc} /></span>
     ))
   }
-
-  //{ prod, qtty: +1 }
 
   function updateCart(e: any, prod: Product) {
 
